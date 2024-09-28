@@ -1,20 +1,26 @@
 const { test, expect } = require("@playwright/test");
-const exp = require("constants");
 
 test.describe("register", async () => {
+  //helper function to generate random username
+  function generateRandomUsername() {
+    const randomString = Math.random().toString(36).substring(2, 8);
+    return `${randomString}`;
+  }
+  const randomUsername = generateRandomUsername();
+
   test("Register user", async ({ page }) => {
-    await page.goto("https://automaticityacademy.ngrok.app/");
+    await page.goto("/");
     await page.getByRole("link", { name: "Register" }).click();
 
     //add user name and assert it's populated with right value
     await page.locator("#username").click();
-    await page.locator("#username").fill("Rale66");
-    await expect(page.locator("#username")).toHaveValue("Rale2");
+    await page.locator("#username").fill(randomUsername);
+    await expect(page.locator("#username")).toHaveValue(randomUsername);
 
     //add email and assert it's populated with right value
     await page.locator("#email").click();
-    await page.locator("#email").fill("rale12@gmail.com");
-    await expect(page.locator("#email")).toHaveValue("rale12@gmail.com");
+    await page.locator("#email").fill("ra@g.com");
+    await expect(page.locator("#email")).toHaveValue("ra@g.com");
 
     //add password and assert it's populated with right value
     await page.locator("#password").click();
@@ -24,16 +30,15 @@ test.describe("register", async () => {
     await page.getByLabel("Register").click();
   });
 });
-
 test.describe("login", async () => {
   test("Login user", async ({ page }) => {
-    await page.goto("https://automaticityacademy.ngrok.app/");
+    await page.goto("/");
     await page.getByRole("link", { name: "Log in" }).click();
 
     //add email and assert it's populated with right value
     await page.locator("#email").click();
-    await page.locator("#email").fill("rale@gmail.com");
-    await expect(page.locator("#email")).toHaveValue("rale@gmail.com");
+    await page.locator("#email").fill("ra@g.com");
+    await expect(page.locator("#email")).toHaveValue("ra@g.com");
 
     //add password and assert it's populated with right value
     await page.locator("#password").click();
