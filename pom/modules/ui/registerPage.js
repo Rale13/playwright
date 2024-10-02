@@ -6,7 +6,7 @@ export class RegisterPage {
     this.emailInput = page.locator("#email");
     this.passwordlInput = page.locator("#password");
     this.registerButton = page.locator("button");
-    this.errorMessage = page.locator(".text-sm")
+    this.errorMessage = page.locator(".text-red-600");
   }
 
   async register(username, email, password) {
