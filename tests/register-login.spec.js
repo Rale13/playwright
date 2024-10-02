@@ -26,7 +26,60 @@ test.describe("register", async () => {
     //initiate POM class
     registerPage = new RegisterPage(page);
   });
+  //negative cases
+  test("empty username", async ({ page }) => {
+    //initiate POM class
+    registerPage.emptyUsername(email, pass);
+    //verify error message and url
+    await expect(registerPage.errorMessage).toBeVisible();
+    await expect(registerPage.errorMessage).toHaveText(ERRORS["USERNAME"]);
+    await expect(page).toHaveURL(URLS["REGISTER"]);
+  });
 
+  test("empty email", async ({ page }) => {
+    //initiate POM class
+    registerPage.emptyEmail(username, pass);
+    //verify error message and url
+    await expect(registerPage.errorMessage).toBeVisible();
+    await expect(registerPage.errorMessage).toHaveText(ERRORS["EMAIL"]);
+    await expect(page).toHaveURL(URLS["REGISTER"]);
+  });
+
+  test("empty password", async ({ page }) => {
+    //initiate POM class
+    registerPage.emptyPassword(username, email);
+    //verify error message and url
+    await expect(registerPage.errorMessage).toBeVisible();
+    await expect(registerPage.errorMessage).toHaveText(ERRORS["PASSWORD"]);
+    await expect(page).toHaveURL(URLS["REGISTER"]);
+  });
+
+  test("existing username", async ({ page }) => {
+    //fill in form and submit
+    registerPage.register(registerdUser, email, pass);
+    //verify error message and url
+    await expect(registerPage.errorMessage).toBeVisible();
+    await expect(registerPage.errorMessage).toHaveText(ERRORS["TAKEN_USER"]);
+    await expect(page).toHaveURL(URLS["REGISTER"]);
+  });
+
+  test("existing email", async ({ page }) => {
+    //fill in form and submit
+    registerPage.register(username, registerdEmail, pass);
+    //verify error message and url
+    await expect(registerPage.errorMessage).toBeVisible();
+    await expect(registerPage.errorMessage).toHaveText(ERRORS["TAKEN_EMAIL"]);
+    await expect(page).toHaveURL(URLS["REGISTER"]);
+  });
+
+  test("invalid email", async ({ page }) => {
+    //fill in form and submit
+    registerPage.register(username, username, pass);
+    //verify error message and url
+    await expect(registerPage.errorMessage).toBeVisible();
+    await expect(registerPage.errorMessage).toHaveText(ERRORS["INVALID_EMAIL"]);
+    await expect(page).toHaveURL(URLS["REGISTER"]);
+  });
   test("register user", async ({ page }) => {
     //validate page
     await expect(registerPage.heading).toBeVisible();
