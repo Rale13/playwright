@@ -1,12 +1,12 @@
 import { test, expect } from "@playwright/test";
-import { generateUserCredentials, HEADINGS, URLS, ERRORS, utils,} from "../fixtures";
+import { generateUserCredentials, HEADINGS, URLS, ERRORS} from "../fixtures";
 import { RegisterPage } from "../pom/modules/ui/registerPage";
 import { LoginPage } from "../pom/modules/ui/loginPage";
 
 let loginPage;
 let registerPage;
 //generate random user credentials
-const { username, email, pass, registerdUser, registerdEmail } = generateUserCredentials(5);
+const { username, email, pass, registerdUser, registerdEmail, invalidEmail } = generateUserCredentials(5);
 let loginEmail = email;
 let loginPassword = pass;
 
@@ -113,7 +113,7 @@ test.describe("login", async () => {
 
   test("wrong email", async ({ page }) => {
     //initiate POM class
-    loginPage.login(email, loginPassword);
+    loginPage.login(invalidEmail, loginPassword);
     //verify error message and url
     await expect(loginPage.errorMessage).toBeVisible();
     await expect(loginPage.errorMessage).toHaveText(ERRORS["INVALID_EP"]);
@@ -122,7 +122,7 @@ test.describe("login", async () => {
 
   test("wrong password", async ({ page }) => {
     //initiate POM class
-    loginPage.login(loginEmail, pass);
+    loginPage.login(loginEmail, invalidEmail);
     //verify error message and url
     await expect(loginPage.errorMessage).toBeVisible();
     await expect(loginPage.errorMessage).toHaveText(ERRORS["INVALID_EP"]);
