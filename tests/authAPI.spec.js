@@ -18,7 +18,7 @@ test.describe("Registration API tests", () => {
   });
 
   //negative cases
-  test.only("Shouldn't be able to register without username", async () => {
+  test("Shouldn't be able to register without username", async () => {
     const response = await registerAPI.registerWithoutUsername(email, pass);
     // Validate the registration response
     expect(response).toHaveProperty("message", ERRORS["USERNAME"]);
