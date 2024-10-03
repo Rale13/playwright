@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("title", async () => {
+test.describe("title",() => {
   test.beforeEach("visit app", async ({ page }) => {
     await page.goto("https://automaticityacademy.ngrok.app/");
   });
@@ -60,7 +60,7 @@ test.describe("title", async () => {
   });
 });
 
-test.describe("subtitle", async () => {
+test.describe("subtitle",() => {
   test.beforeEach("visit app", async ({ page }) => {
     await page.goto("https://automaticityacademy.ngrok.app/");
   });
