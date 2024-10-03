@@ -12,7 +12,7 @@ let loginPassword = pass;
 
 test.describe.configure({ mode: "serial" });
 
-test.describe("Registration API tests", async () => {
+test.describe("Registration API tests", () => {
   test.beforeEach("start pom", async ({ page }) => {
     registerAPI = new RegisterAPI(page);
   });
@@ -74,7 +74,7 @@ test.describe("Registration API tests", async () => {
 });
 
 
-test.describe("Login API tests", async () => {
+test.describe("Login API tests", () => {
   test.beforeEach("start pom", async ({ page }) => {
     loginAPI = new LoginAPI(page);
   });

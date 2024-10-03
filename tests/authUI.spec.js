@@ -11,7 +11,7 @@ let loginPassword = pass;
 
 test.describe.configure({ mode: "serial" });
 
-test.describe("register", async () => {
+test.describe("register",() => {
   test.beforeEach("visi page and validte", async ({ page }) => {
     //visit page and validate
     await page.goto(URLS["REGISTER"]);
@@ -86,7 +86,7 @@ test.describe("register", async () => {
   });
 });
 
-test.describe("login", async () => {
+test.describe("login",() => {
   test.beforeEach("visi page and validte", async ({ page }) => {
     //visit page and validate
     await page.goto(URLS["LOGIN"]);
