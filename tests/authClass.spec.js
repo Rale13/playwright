@@ -49,8 +49,8 @@ test.describe("register a user and log in", () => {
 
     //visit app and validate
     await page.goto(URLS["LOGIN"]);
-    await expect(page.locator("h1")).toBeVisible();
-    await expect(page.locator("h1")).toHaveText(HEADINGS["LOGIN"]);
+    await expect(loginPage.heading).toBeVisible();
+    await expect(loginPage.heading).toHaveText(HEADINGS["LOGIN"]);
 
     //fill in the form and submit
     // await page.locator("#email").fill(loginEmail);
@@ -60,7 +60,7 @@ test.describe("register a user and log in", () => {
     //utils.fillAndSubmitForm(page, ["#email", "#password"], [email, pass]);
 
     //fill in form and submit
-    loginPage.login(email, pass);
+    loginPage.login(loginEmail, loginPassword);
 
     //wait for and verify redirect
     await page.waitForURL(URLS["DASHBOARD"]);
