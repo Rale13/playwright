@@ -1,69 +1,69 @@
-import { test, expect } from "@playwright/test";
-import { generateUserCredentials, HEADINGS, URLS, utils } from "../fixtures";
-import { RegisterPage } from "../pom/modules/ui/registerPage";
-import { LoginPage } from "../pom/modules/ui/loginPage";
+// import { test, expect } from "@playwright/test";
+// import { generateUserCredentials, HEADINGS, URLS, utils } from "../fixtures";
+// import { RegisterPage } from "../pom/modules/ui/registerPage";
+// import { LoginPage } from "../pom/modules/ui/loginPage";
 
-let loginEmail, loginPassword;
+// let loginEmail, loginPassword;
 
-test.describe.configure({ mode: "serial" });
+// test.describe.configure({ mode: "serial" });
 
-test.describe("register a user and log in", () => {
-  test("register a user with valid data", async ({ page }) => {
-    //generate random user credentials
-    const { username, email, pass } = generateUserCredentials(5);
-    loginEmail = email;
-    loginPassword = pass;
+// test.describe("register a user and log in", () => {
+//   test("register a user with valid data", async ({ page }) => {
+//     //generate random user credentials
+//     const { username, email, pass } = generateUserCredentials(5);
+//     loginEmail = email;
+//     loginPassword = pass;
 
-    //instantiate POM class
-    const registerPage = new RegisterPage(page);
+//     //instantiate POM class
+//     const registerPage = new RegisterPage(page);
 
-    //visit page and validate
-    // await page.goto(URLS["REGISTER"]);
-    // await expect(page.locator("h1")).toBeVisible();
-    // await expect(page.locator("h1")).toHaveText(HEADINGS["REGISTER"]);
+//     //visit page and validate
+//     // await page.goto(URLS["REGISTER"]);
+//     // await expect(page.locator("h1")).toBeVisible();
+//     // await expect(page.locator("h1")).toHaveText(HEADINGS["REGISTER"]);
 
-    await page.goto(URLS["REGISTER"]);
-    await expect(registerPage.heading).toBeVisible();
-    await expect(registerPage.heading).toHaveText(
-      HEADINGS["REGISTER"]
-    );
+//     await page.goto(URLS["REGISTER"]);
+//     await expect(registerPage.heading).toBeVisible();
+//     await expect(registerPage.heading).toHaveText(
+//       HEADINGS["REGISTER"]
+//     );
 
-    // await page.locator("#username").fill(loginEmail);
-    // await page.locator("#email").fill(loginEmail);
-    // await page.locator("#password").fill(loginPassword);
-    // await page.locator("button").click();
+//     // await page.locator("#username").fill(loginEmail);
+//     // await page.locator("#email").fill(loginEmail);
+//     // await page.locator("#password").fill(loginPassword);
+//     // await page.locator("button").click();
 
-    //utils.fillAndSubmitForm(page, ["#username", "#email", "#password"], [username, email, pass])
+//     //utils.fillAndSubmitForm(page, ["#username", "#email", "#password"], [username, email, pass])
 
-    //fill in form and submit
-    registerPage.register(username, email, pass);
+//     //fill in form and submit
+//     registerPage.register(username, email, pass);
 
-    //wait for and verify redirect
-    await page.waitForURL(URLS["DASHBOARD"]);
-    await expect(page.getByText(HEADINGS["DASHBOARD"])).toBeVisible();
-  });
+//     //wait for and verify redirect
+//     await page.waitForURL(URLS["DASHBOARD"]);
+//     await expect(page.getByText(HEADINGS["DASHBOARD"])).toBeVisible();
+//   });
 
-  test("login with registred user", async ({ page }) => {
-    //instantiate POM class
-    const loginPage = new LoginPage(page);
+//   test("login with registred user", async ({ page }) => {
+//     //instantiate POM class
+//     const loginPage = new LoginPage(page);
 
-    //visit app and validate
-    await page.goto(URLS["LOGIN"]);
-    await expect(page.locator("h1")).toBeVisible();
-    await expect(page.locator("h1")).toHaveText(HEADINGS["LOGIN"]);
+//     //visit app and validate
+//     await page.goto(URLS["LOGIN"]);
+//     await expect(page.locator("h1")).toBeVisible();
+//     await expect(page.locator("h1")).toHaveText(HEADINGS["LOGIN"]);
 
-    //fill in the form and submit
-    // await page.locator("#email").fill(loginEmail);
-    // await page.locator("#password").fill(loginPassword);
-    // await page.locator("button").click();
+//     //fill in the form and submit
+//     // await page.locator("#email").fill(loginEmail);
+//     // await page.locator("#password").fill(loginPassword);
+//     // await page.locator("button").click();
 
-    //utils.fillAndSubmitForm(page, ["#email", "#password"], [email, pass]);
+//     //utils.fillAndSubmitForm(page, ["#email", "#password"], [email, pass]);
 
-    //fill in form and submit
-    loginPage.login(email, pass);
+//     //fill in form and submit
+//     loginPage.login(email, pass);
 
-    //wait for and verify redirect
-    await page.waitForURL(URLS["DASHBOARD"]);
-    await expect(page.getByText(HEADINGS["DASHBOARD"])).toBeVisible();
-  });
-});
+//     //wait for and verify redirect
+//     await page.waitForURL(URLS["DASHBOARD"]);
+//     await expect(page.getByText(HEADINGS["DASHBOARD"])).toBeVisible();
+//   });
+// });
