@@ -60,7 +60,7 @@ test.describe("register a user and log in", () => {
     //utils.fillAndSubmitForm(page, ["#email", "#password"], [email, pass]);
 
     //fill in form and submit
-    loginPage.login(email, pass);
+    loginPage.login(loginEmail, loginPassword);
 
     //wait for and verify redirect
     await page.waitForURL(URLS["DASHBOARD"]);
