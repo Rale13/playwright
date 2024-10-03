@@ -43,5 +43,3 @@ export class LoginAPI {
     return responseJson;
   }
 }
-
-export default { LoginAPI };

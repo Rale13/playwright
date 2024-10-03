@@ -5,7 +5,7 @@ import { LoginAPI } from "../pom/modules/api/loginAPI";
 
 let loginAPI;
 let registerAPI;
-const { username, email, pass, registerdUser, registerdEmail ,invalidEmail} =
+const { username, email, pass, registeredUser, registeredEmail ,invalidEmail} =
   generateUserCredentials(5);
 let loginEmail = email;
 let loginPassword = pass;
@@ -18,27 +18,27 @@ test.describe("Registration API tests", async () => {
   });
 
   //negative cases
-  test("register with empty username", async () => {
+  test("Shouldn't be able to register without username", async () => {
     const response = await registerAPI.registerWithoutUsername(email, pass);
     // Validate the registration response
     expect(response).toHaveProperty("message", ERRORS["USERNAME"]);
   });
 
-  test("register with empty email", async () => {
+  test("Shouldn't be able to register without email", async () => {
     const response = await registerAPI.registerWithoutEmail(username, pass);
     // Validate the registration response
     expect(response).toHaveProperty("message", ERRORS["EMAIL"]);
   });
 
-  test("register with empty password", async () => {
+  test("Shouldn't be able to register without password", async () => {
     const response = await registerAPI.registerWithoutPassword(username, email);
     // Validate the registration response
     expect(response).toHaveProperty("message", ERRORS["PASSWORD"]);
   });
 
-  test("register with registred username", async () => {
+  test("Shouldn't be able to register with registered username", async () => {
     const response = await registerAPI.registerViaBE(
-      registerdUser,
+      registeredUser,
       email,
       pass
     );
@@ -46,17 +46,17 @@ test.describe("Registration API tests", async () => {
     expect(response).toHaveProperty("message", ERRORS["TAKEN_USER"]);
   });
 
-  test("register with registred email", async () => {
+  test("Shouldn't be able to register with registered email", async () => {
     const response = await registerAPI.registerViaBE(
       username,
-      registerdEmail,
+      registeredEmail,
       pass
     );
     // Validate the registration response
     expect(response).toHaveProperty("message", ERRORS["TAKEN_EMAIL"]);
   });
 
-  test("register with invalid email", async () => {
+  test("Shouldn't be able to register with email of invalid format", async () => {
     const response = await registerAPI.registerViaBE(username, username, pass);
     // Validate the registration response
     expect(response).toHaveProperty("message", ERRORS["INVALID_EMAIL"]);
@@ -79,38 +79,38 @@ test.describe("Login API tests", async () => {
     loginAPI = new LoginAPI(page);
   });
 
-  test("login with empty email", async () => {
+  test("Shouldn't be able to login without email", async () => {
     const response = await loginAPI.loginWithoutEmail(loginPassword);
     // Validate the registration response
     expect(response).toHaveProperty("message", ERRORS["EMAIL"]);
   });
 
-  test("login with empty password", async () => {
+  test("Shouldn't be able to login without password", async () => {
     const response = await loginAPI.loginWithoutPassowrd(loginEmail);
     // Validate the registration response
     expect(response).toHaveProperty("message", ERRORS["PASSWORD"]);
   });
 
-  test("login with wrong email", async () => {
+  test("Shouldn't be able to login with invalid email", async () => {
     const response = await loginAPI.loginViaBE(invalidEmail, loginPassword);
     // Validate the registration response
     expect(response).toHaveProperty("error", "Unauthorized");
   });
 
-  test("login with wrong pass", async () => {
+  test("Shouldn't be able to login with invalid password", async () => {
     const response = await loginAPI.loginViaBE(loginEmail, username);
     // Validate the registration response
     expect(response).toHaveProperty("error", "Unauthorized");
   });
 
-  test("login with invalid email format", async () => {
+  test("Shouldn't be able to login with email of invalid format", async () => {
     const response = await loginAPI.loginViaBE(username, loginPassword);
     // Validate the registration response
     expect(response).toHaveProperty("message", ERRORS["INVALID_EMAIL_L"]);
   });
 
   test("login user via API", async () => {
-    // Call the registerViaBE
+    // Call the loginViaBE
     const response = await loginAPI.loginViaBE(loginEmail, loginPassword);
     // Validate the registration response
     expect(response).toHaveProperty("status", "Success");

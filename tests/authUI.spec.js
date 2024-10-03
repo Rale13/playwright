@@ -5,8 +5,7 @@ import { LoginPage } from "../pom/modules/ui/loginPage";
 
 let loginPage;
 let registerPage;
-//generate random user credentials
-const { username, email, pass, registerdUser, registerdEmail, invalidEmail } = generateUserCredentials(5);
+const { username, email, pass, registeredUser, registeredEmail, invalidEmail } = generateUserCredentials(5);
 let loginEmail = email;
 let loginPassword = pass;
 
@@ -16,12 +15,13 @@ test.describe("register", async () => {
   test.beforeEach("visi page and validte", async ({ page }) => {
     //visit page and validate
     await page.goto(URLS["REGISTER"]);
-    //initiate POM class
+    //Instantiate POM class
     registerPage = new RegisterPage(page);
   });
+
   //negative cases
-  test("empty username", async ({ page }) => {
-    //initiate POM class
+  test("Shouldn't be able to register without username", async ({ page }) => {
+    //Instantiate POM class
     registerPage.emptyUsername(email, pass);
     //verify error message and url
     await expect(registerPage.errorMessage).toBeVisible();
@@ -29,8 +29,8 @@ test.describe("register", async () => {
     await expect(page).toHaveURL(URLS["REGISTER"]);
   });
 
-  test("empty email", async ({ page }) => {
-    //initiate POM class
+  test("Shouldn't be able to register without email", async ({ page }) => {
+    //Instantiate POM class
     registerPage.emptyEmail(username, pass);
     //verify error message and url
     await expect(registerPage.errorMessage).toBeVisible();
@@ -38,8 +38,8 @@ test.describe("register", async () => {
     await expect(page).toHaveURL(URLS["REGISTER"]);
   });
 
-  test("empty password", async ({ page }) => {
-    //initiate POM class
+  test("Shouldn't be able to register without password", async ({ page }) => {
+    //Instantiate POM class
     registerPage.emptyPassword(username, email);
     //verify error message and url
     await expect(registerPage.errorMessage).toBeVisible();
@@ -47,37 +47,38 @@ test.describe("register", async () => {
     await expect(page).toHaveURL(URLS["REGISTER"]);
   });
 
-  test("existing username", async ({ page }) => {
-    //initiate POM class
-    registerPage.register(registerdUser, email, pass);
+  test("Shouldn't be able to register with registered username", async ({ page }) => {
+    //Instantiate POM class
+    registerPage.register(registeredUser, email, pass);
     //verify error message and url
     await expect(registerPage.errorMessage).toBeVisible();
     await expect(registerPage.errorMessage).toHaveText(ERRORS["TAKEN_USER"]);
     await expect(page).toHaveURL(URLS["REGISTER"]);
   });
 
-  test("existing email", async ({ page }) => {
-    //initiate POM class
-    registerPage.register(username, registerdEmail, pass);
+  test("Shouldn't be able to register with registered email", async ({ page }) => {
+    //Instantiate POM class
+    registerPage.register(username, registeredEmail, pass);
     //verify error message and url
     await expect(registerPage.errorMessage).toBeVisible();
     await expect(registerPage.errorMessage).toHaveText(ERRORS["TAKEN_EMAIL"]);
     await expect(page).toHaveURL(URLS["REGISTER"]);
   });
 
-  test("invalid email", async ({ page }) => {
-    //initiate POM class
+  test("Shouldn't be able to register with email of invalid format", async ({ page }) => {
+    //Instantiate POM class
     registerPage.register(username, username, pass);
     //verify error message and url
     await expect(registerPage.errorMessage).toBeVisible();
     await expect(registerPage.errorMessage).toHaveText(ERRORS["INVALID_EMAIL"]);
     await expect(page).toHaveURL(URLS["REGISTER"]);
   });
+  
   test("register user", async ({ page }) => {
     //validate page
     await expect(registerPage.heading).toBeVisible();
     await expect(registerPage.heading).toHaveText(HEADINGS["REGISTER"]);
-    //initiate POM class
+    //Instantiate POM class
     registerPage.register(username, email, pass);
     //wait for and verify redirect
     await page.waitForURL(URLS["DASHBOARD"]);
@@ -89,12 +90,12 @@ test.describe("login", async () => {
   test.beforeEach("visi page and validte", async ({ page }) => {
     //visit page and validate
     await page.goto(URLS["LOGIN"]);
-    //initiate POM class
+    //Instantiate POM class
     loginPage = new LoginPage(page);
   });
 
-  test("empty email", async ({ page }) => {
-    //initiate POM class
+  test("Shouldn't be able to login without email", async ({ page }) => {
+    //Instantiate POM class
     loginPage.emptyEmail(loginPassword);
     //verify error message and url
     await expect(loginPage.errorMessage).toBeVisible();
@@ -102,8 +103,8 @@ test.describe("login", async () => {
     await expect(page).toHaveURL(URLS["LOGIN"]);
   });
 
-  test("empty password", async ({ page }) => {
-    //initiate POM class
+  test("Shouldn't be able to login without password", async ({ page }) => {
+    //Instantiate POM class
     loginPage.emptyPassword(loginEmail);
     //verify error message and url
     await expect(loginPage.errorMessage).toBeVisible();
@@ -111,8 +112,8 @@ test.describe("login", async () => {
     await expect(page).toHaveURL(URLS["LOGIN"]);
   });
 
-  test("wrong email", async ({ page }) => {
-    //initiate POM class
+  test("Shouldn't be able to login with invalid email", async ({ page }) => {
+    //Instantiate POM class
     loginPage.login(invalidEmail, loginPassword);
     //verify error message and url
     await expect(loginPage.errorMessage).toBeVisible();
@@ -120,8 +121,8 @@ test.describe("login", async () => {
     await expect(page).toHaveURL(URLS["LOGIN"]);
   });
 
-  test("wrong password", async ({ page }) => {
-    //initiate POM class
+  test("Shouldn't be able to login with invalid password", async ({ page }) => {
+    //Instantiate POM class
     loginPage.login(loginEmail, invalidEmail);
     //verify error message and url
     await expect(loginPage.errorMessage).toBeVisible();
@@ -129,8 +130,8 @@ test.describe("login", async () => {
     await expect(page).toHaveURL(URLS["LOGIN"]);
   });
 
-  test("invalid email format", async ({ page }) => {
-    //initiate POM class
+  test("Shouldn't be able to login with email of invalid format", async ({ page }) => {
+    //Instantiate POM class
     loginPage.login(username, pass);
     //verify error message and url
     await expect(loginPage.errorMessage).toBeVisible();

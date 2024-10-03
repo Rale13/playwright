@@ -60,4 +60,3 @@ export class RegisterAPI {
     return responseJson;
   }
 }
-export default { RegisterAPI };

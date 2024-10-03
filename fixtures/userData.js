@@ -1,16 +1,16 @@
-import { generateRandomString, generateRandomNumb } from "./utils";
+import { generateRandomString, generateRandomNum } from "./utils";
 
 export const generateUserCredentials = (length) => {
     const baseString = generateRandomString(length);
-    const baseNumb = generateRandomNumb(length);
+    const baseNumb = generateRandomNum(length);
 
     const username = baseString;
     const email = `${baseString}@mail.com`;
     const pass = `${baseString}1234`;
-    const registerdUser = "Rale";
-    const registerdEmail = "rale@gmail.com";
+    const registeredUser = "Rale";
+    const registeredEmail = "rale@gmail.com";
     const invalidEmail = `${baseNumb}@mail.com`;
 
 
-    return {username, email, pass, registerdUser, registerdEmail, invalidEmail};
+    return {username, email, pass, registeredUser, registeredEmail, invalidEmail};
 };

@@ -9,7 +9,7 @@ const generateRandomString = (length) => {
     return result;
   };
 
-  const generateRandomNumb = (length) => {
+  const generateRandomNum = (length) => {
     const characters ="0123456789";
     let result = "";
     for (let i = 0; i < length; i++) {
@@ -27,4 +27,4 @@ const fillAndSubmitForm = async (page, fields, values) => {
   await page.locator("button").click();
 }; 
 
-export { generateRandomString, generateRandomNumb, fillAndSubmitForm};
+export { generateRandomString, generateRandomNum, fillAndSubmitForm};
