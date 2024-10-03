@@ -23,8 +23,8 @@ test.describe("register a user and log in", () => {
     // await expect(page.locator("h1")).toHaveText(HEADINGS["REGISTER"]);
 
     await page.goto(URLS["REGISTER"]);
-    await expect(page.locator(registerPage.heading)).toBeVisible();
-    await expect(page.locator(registerPage.heading)).toHaveText(
+    await expect(registerPage.heading).toBeVisible();
+    await expect(registerPage.heading).toHaveText(
       HEADINGS["REGISTER"]
     );
 
