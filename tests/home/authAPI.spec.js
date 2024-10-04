@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { generateUserCredentials, ERRORS } from "../fixtures";
-import { RegisterAPI } from "../pom/modules/api/registerAPI";
-import { LoginAPI } from "../pom/modules/api/loginAPI";
+import { generateUserCredentials, ERRORS } from "../../fixtures";
+import { RegisterAPI } from "../../pom/modules/api/registerAPI";
+import { LoginAPI } from "../../pom/modules/api/loginAPI";
 
 let loginAPI;
 let registerAPI;

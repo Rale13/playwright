@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { generateUserCredentials, HEADINGS, URLS, utils } from "../fixtures";
-import { RegisterPage } from "../pom/modules/ui/registerPage";
-import { LoginPage } from "../pom/modules/ui/loginPage";
+import { generateUserCredentials, HEADINGS, URLS, utils } from "../../fixtures";
+import { RegisterPage } from "../../pom/modules/ui/registerPage";
+import { LoginPage } from "../../pom/modules/ui/loginPage";
 
 let loginEmail, loginPassword;
 

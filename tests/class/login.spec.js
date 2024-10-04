@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { LoginPage } from "../pom/modules/ui/loginPage";
+import { LoginPage } from "../../pom/modules/ui/loginPage";
 
 let loginPage;
 
