@@ -1,37 +1,63 @@
-import { test, expect } from "@playwright/test";
+import { test, expect} from "@playwright/test";
 import { LoginPage } from "../../pom/modules/ui/loginPage";
 import { Dashboard } from "../../pom/modules/ui/dashboard";
-import { generateUserCredentials, URLS, HEADINGS } from "../../fixtures";
+import { generateUserCredentials, URLS, HEADINGS, utils } from "../../fixtures";
 
-let dashboar;
+let dashboard;
 let loginPage;
-
+let cards;
 const { registeredEmail, registeredPass } = generateUserCredentials();
 
-test.describe("dashboar tests", () => {
-  test.beforeEach("log in", async ({ page }) => {
+test.describe("dashboard tests", () => {
+  test.beforeAll("log in", async ({browser}) => {
+    const page = await browser.newPage();
     await page.goto(URLS["LOGIN"]);
-    //Instantiate POM class
     loginPage = new LoginPage(page);
-    dashboar = new Dashboard(page);
+    dashboard = new Dashboard(page);
     loginPage.login(registeredEmail, registeredPass);
-    await expect(page.getByText(HEADINGS["DASHBOARD"])).toBeVisible();
+    await expect (page.getByText(HEADINGS["DASHBOARD"])).toBeVisible();
+    cards = await utils.iterateThroughElements(dashboard.productLocator, async (card) => {
+      return card;
+    });   
   });
 
   test("gear icon should be visible", async ({ page }) => {
-    await expect(dashboar.gearLocator).toBeVisible();
+    await expect(dashboard.gearLocator).toBeVisible();
   });
 
   test("filter list should be in viewport", async () => {
-    await expect(dashboar.filter).toBeInViewport();
+    await expect(dashboard.filter).toBeInViewport();
   });
 
-  test("there should be 12 items per page", async () => {
-    await expect(dashboar.productLocator).toHaveCount(12);
+  test("product card should have a title", async () => {
+    for (const card of cards) {
+      await expect(card).toHaveAttribute(dashboard.productTitle);
+    }
   });
 
-  test("there should be 12 products on the second page", async ({ page }) => {
-    await dashboar.pagButton.click();
-    await expect(dashboar.productLocator).toHaveCount(12);
+  test("product card should have an image", async () => {
+    for (const card of cards) {
+      await expect(card).toHaveAttribute(dashboard.productImg);
+    }
   });
+
+  test("product card should have a price", async () => {
+    for (const card of cards) {
+      await expect(card).toHaveAttribute(dashboard.productPrice);
+    }
+  });
+
+  test("product card should have a cart button", async () => {
+    for (const card of cards) {
+      await expect(card).toHaveAttribute(dashboard.productCartBtn);
+    }
+  });
+
+  test("there should be 12 products per page", async () => {
+    for(const card of cards) {
+      await expect(card).toHaveCount(12);
+    } 
+  });
+
+  
 });
