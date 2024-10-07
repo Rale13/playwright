@@ -36,7 +36,7 @@ test.describe("register a user and log in", () => {
     //utils.fillAndSubmitForm(page, ["#username", "#email", "#password"], [username, email, pass])
 
     //fill in form and submit
-    registerPage.register(username, email, pass);
+    registerPage.register(username, email, password);
 
     //wait for and verify redirect
     await page.waitForURL(URLS["DASHBOARD"]);
