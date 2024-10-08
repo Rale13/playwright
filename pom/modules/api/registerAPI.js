@@ -23,4 +23,32 @@ export class RegisterAPI extends BaseAPI {
 
     return responseJson;
   }
+
+  async registerWithoutEmail(username,password) {
+    let response = await this.page.request.post("/api/v1/auth/register", {
+      headers: { Accept: "application/json" },
+      data: {
+        username: username,
+        password: password,
+      },
+    });
+
+    let responseJson = await response.json();
+
+    return responseJson;
+  }
+
+  async registerWithoutPassword(username,email) {
+    let response = await this.page.request.post("/api/v1/auth/register", {
+      headers: { Accept: "application/json" },
+      data: {
+        username: username,
+        email: email,
+      },
+    });
+
+    let responseJson = await response.json();
+
+    return responseJson;
+  }
 }
