@@ -9,6 +9,7 @@ export const generateUserCredentials = (length) => {
   const password = `${baseString}1234`;
   const registeredUser = "Rale13";
   const registeredEmail = "rale13@gmail.com";
+  const registeredPassword = "Test1234"
   const invalidEmail = `${baseNumb}@mail.com`;
 
   return {
@@ -17,26 +18,22 @@ export const generateUserCredentials = (length) => {
     password,
     registeredUser,
     registeredEmail,
+    registeredPassword,
     invalidEmail,
   };
 };
 
-export const VALID_LOGIN_PAYLOAD = {
-  email: "rale13@gmail.com",
-  password: "Test1234",
-};
-
-export const EMPTY_USERNAME_PAYLOAD = {
+export const REGISTER_EMPTY_USERNAME = {
   email: generateUserCredentials(5).email,
   password: generateUserCredentials(5).password,
 };
 
-export const EMPTY_EMAIL_PAYLOAD = {
+export const REGISTER_EMPTY_EMAIL = {
   username: generateUserCredentials(5).username,
   password: generateUserCredentials(5).password,
 };
 
-export const EMPTY_PASSWORD_PAYLOAD = {
+export const REGISTER_EMPTY_PASSWORD = {
   username: generateUserCredentials(5).username,
   email: generateUserCredentials(5).email,
 };
@@ -57,4 +54,32 @@ export const INVALID_EMALI_PAYLOAD = {
   username: generateUserCredentials(5).username,
   email: generateUserCredentials(5).username,
   password: generateUserCredentials(5).password
+}
+
+export const VALID_LOGIN_PAYLOAD = {
+  email: generateUserCredentials().registeredEmail,
+  password: generateUserCredentials().registeredPassword,
+};
+
+export const LOGIN_EMPTY_EMAIL = {
+  password: generateUserCredentials().registeredPassword
+}
+
+export const LOGIN_EMPTY_PASSWORD = {
+  email: generateUserCredentials().registeredEmail
+}
+
+export const LOGIN_INVALID_EMAIL = {
+  email: generateUserCredentials(5).invalidEmail,
+  password: generateUserCredentials().registeredPassword
+}
+
+export const LOGIN_INVALID_PASSWORD = {
+  email: generateUserCredentials().registeredEmail,
+  password: generateUserCredentials(5).username
+}
+
+export const LOGIN_INVALID_EMAIL_FORMAT = {
+  email: generateUserCredentials(5).username,
+  password: generateUserCredentials().registeredPassword
 }
