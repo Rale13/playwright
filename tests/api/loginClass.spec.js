@@ -14,7 +14,7 @@ test.describe("login API tests", () => {
   });
 
   test("should not be able to login with empty payload properties", async () => {
-    const credentials = generateUserCredentials(0);
+    const credentials = userData.generateUserCredentials(0);
     const response = await loginApi.login({
       email: credentials.email,
       password: credentials.password,

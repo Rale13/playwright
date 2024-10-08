@@ -1,12 +1,12 @@
 import { test, expect } from "@playwright/test";
-import { generateUserCredentials, ERRORS } from "../../fixtures";
+import { userData, ERRORS } from "../../fixtures";
 import { RegisterAPI } from "../../pom/modules/api/registerAPI";
 import { LoginAPI } from "../../pom/modules/api/loginAPI";
 
 let loginAPI;
 let registerAPI;
 const { username, email, pass, registeredUser, registeredEmail ,invalidEmail} =
-  generateUserCredentials(5);
+  userData.generateUserCredentials(5);
 let loginEmail = email;
 let loginPassword = pass;
 
