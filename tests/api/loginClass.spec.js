@@ -25,8 +25,6 @@ test.describe("login API tests", () => {
 
   test("should be abel to login with valid data", async () => {
     const response = await loginApi.login(userData.VALID_LOGIN_PAYLOAD);
-
-    console.log("RESPONSE", response);
     expect(response.status).toBe(STATUS["SUCCESS"]);
     expect(response.user.email).toBe(userData.VALID_LOGIN_PAYLOAD.email);
   });

@@ -10,9 +10,9 @@ test.describe.configure({ mode: "serial" });
 test.describe("register a user and log in", () => {
   test("register a user with valid data", async ({ page }) => {
     //generate random user credentials
-    const { username, email, pass } = userData.generateUserCredentials(5);
+    const { username, email, password } = userData.generateUserCredentials(5);
     loginEmail = email;
-    loginPassword = pass;
+    loginPassword = password;
 
     //instantiate POM class
     const registerPage = new RegisterPage(page);
