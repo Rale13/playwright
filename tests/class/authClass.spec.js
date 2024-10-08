@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { generateUserCredentials, HEADINGS, URLS, utils } from "../../fixtures";
+import { userData, HEADINGS, URLS } from "../../fixtures";
 import { RegisterPage } from "../../pom/modules/ui/registerPage";
 import { LoginPage } from "../../pom/modules/ui/loginPage";
 
@@ -10,7 +10,7 @@ test.describe.configure({ mode: "serial" });
 test.describe("register a user and log in", () => {
   test("register a user with valid data", async ({ page }) => {
     //generate random user credentials
-    const { username, email, pass } = generateUserCredentials(5);
+    const { username, email, pass } = userData.generateUserCredentials(5);
     loginEmail = email;
     loginPassword = pass;
 

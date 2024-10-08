@@ -1,11 +1,11 @@
 import { test, expect } from "@playwright/test";
-import { generateUserCredentials, HEADINGS, URLS, ERRORS} from "../../fixtures";
+import { userData, HEADINGS, URLS, ERRORS} from "../../fixtures";
 import { RegisterPage } from "../../pom/modules/ui/registerPage";
 import { LoginPage } from "../../pom/modules/ui/loginPage";
 
 let loginPage;
 let registerPage;
-const { username, email, password, registeredUser, registeredEmail, invalidEmail } = generateUserCredentials(5);
+const { username, email, password, registeredUser, registeredEmail, invalidEmail } = userData.generateUserCredentials(5);
 let loginEmail = email;
 let loginPassword = password;
 

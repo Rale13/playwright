@@ -1,9 +1,8 @@
 import { test, expect } from "@playwright/test";
 import { BaseLoginAPI } from "../../pom/modules/api/basicLoginAPI";
 import {
-  VALID_LOGIN_PAYLOAD,
+  userData,
   STATUS,
-  generateUserCredentials,
   ERROR_MESSAGE,
 } from "../../fixtures";
 
@@ -25,10 +24,10 @@ test.describe("login API tests", () => {
   });
 
   test("should be abel to login with valid data", async () => {
-    const response = await loginApi.login(VALID_LOGIN_PAYLOAD);
+    const response = await loginApi.login(userData.VALID_LOGIN_PAYLOAD);
 
     console.log("RESPONSE", response);
     expect(response.status).toBe(STATUS["SUCCESS"]);
-    expect(response.user.email).toBe(VALID_LOGIN_PAYLOAD.email);
+    expect(response.user.email).toBe(userData.VALID_LOGIN_PAYLOAD.email);
   });
 });
