@@ -1,24 +1,16 @@
-export class RegisterAPI {
+import { BaseAPI } from "./baseApi";
+
+export class RegisterAPI extends BaseAPI {
   constructor(page) {
-    this.page = page;
+    super(page);
+    this.endpoint = "/api/v1/auth/register";
   }
 
-  async registerViaBE(username, email, password) {
-    let response = await this.page.request.post("/api/v1/auth/register", {
-      headers: { Accept: "application/json" },
-      data: {
-        username: username,
-        email: email,
-        password: password,
-      },
-    });
-
-    let responseJson = await response.json();
-
-    return responseJson;
+  async register(payload) {
+    return await this.post(this.endpoint, payload);
   }
 
-  async registerWithoutUsername(email, password) {
+  async registerWithoutUsername(email,password) {
     let response = await this.page.request.post("/api/v1/auth/register", {
       headers: { Accept: "application/json" },
       data: {
@@ -32,7 +24,7 @@ export class RegisterAPI {
     return responseJson;
   }
 
-  async registerWithoutEmail(username, password) {
+  async registerWithoutEmail(username,password) {
     let response = await this.page.request.post("/api/v1/auth/register", {
       headers: { Accept: "application/json" },
       data: {
@@ -46,7 +38,7 @@ export class RegisterAPI {
     return responseJson;
   }
 
-  async registerWithoutPassword(username, email) {
+  async registerWithoutPassword(username,email) {
     let response = await this.page.request.post("/api/v1/auth/register", {
       headers: { Accept: "application/json" },
       data: {

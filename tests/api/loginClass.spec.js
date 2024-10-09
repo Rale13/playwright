@@ -1,9 +1,8 @@
 import { test, expect } from "@playwright/test";
 import { BaseLoginAPI } from "../../pom/modules/api/basicLoginAPI";
 import {
-  VALID_LOGIN_PAYLOAD,
+  userData,
   STATUS,
-  generateUserCredentials,
   ERROR_MESSAGE,
 } from "../../fixtures";
 
@@ -15,7 +14,7 @@ test.describe("login API tests", () => {
   });
 
   test("should not be able to login with empty payload properties", async () => {
-    const credentials = generateUserCredentials(0);
+    const credentials = userData.generateUserCredentials(0);
     const response = await loginApi.login({
       email: credentials.email,
       password: credentials.password,
@@ -25,10 +24,8 @@ test.describe("login API tests", () => {
   });
 
   test("should be abel to login with valid data", async () => {
-    const response = await loginApi.login(VALID_LOGIN_PAYLOAD);
-
-    console.log("RESPONSE", response);
+    const response = await loginApi.login(userData.VALID_LOGIN_PAYLOAD);
     expect(response.status).toBe(STATUS["SUCCESS"]);
-    expect(response.user.email).toBe(VALID_LOGIN_PAYLOAD.email);
+    expect(response.user.email).toBe(userData.VALID_LOGIN_PAYLOAD.email);
   });
 });
