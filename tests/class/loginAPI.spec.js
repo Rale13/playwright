@@ -37,7 +37,7 @@ test.describe("Registration API tests", () => {
     expect(response).toHaveProperty("message", ERRORS["PASSWORD"]);
   });
 
-  test.only("Shouldn't be able to register with registered username", async () => {
+  test("Shouldn't be able to register with registered username", async () => {
     const response = await registerAPI.register(
       userData.registeredUser,
       userData.email,
