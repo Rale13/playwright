@@ -31,59 +31,51 @@ test.describe("dashboard tests", () => {
     await expect(dashboard.filter).toBeInViewport();
   });
 
+  test.only("product cards should be visible", async () => {
+    const allCards = await getProductElements(cards, cards)
+    allCards.forEach((card) => {
+      expect(card).toBeTruthy();
+    });
+  });
+
+  test("there should be 12 product cards on the first page", async () => {
+    const cardCount = await cards.count();
+    expect(cardCount).toBe(12);
+  });
+
   test("product cards title should not be empty", async () => {
-    const titles = await getProductElements(
-      dashboard.productLocator,
-      dashboard.productTitle
-    );
+    const titles = await getProductElements(cards, dashboard.productTitle);
     titles.forEach((title) => {
       expect(title).toBeDefined();
     });
   });
 
   test("product title should be visible", async () => {
-    const titles = await getProductElements(
-      dashboard.productLocator,
-      dashboard.productTitle
-    );
+    const titles = await getProductElements(cards, dashboard.productTitle);
     titles.forEach((title) => {
       expect(title).toBeTruthy();
     });
   });
 
   test("product cards should have an image", async () => {
-    const images = await getProductElements(
-      dashboard.productLocator,
-      dashboard.productImg
-    );
+    const images = await getProductElements(cards, dashboard.productImg);
     images.forEach((image) => {
       expect(image).toBeTruthy();
     });
   });
 
   test("product cards should have a price", async () => {
-    const prices = await getProductElements(
-      dashboard.productLocator,
-      dashboard.productPrice
-    );
+    const prices = await getProductElements(cards, dashboard.productPrice);
     prices.forEach((price) => {
       expect(price).toBeTruthy();
     });
   });
 
   test("product cards should have a cart button", async () => {
-    const cardBtns = await getProductElements(
-      dashboard.productLocator,
-      dashboard.productCartBtn
-    );
+    const cardBtns = await getProductElements(cards, dashboard.productCartBtn);
     cardBtns.forEach((cardBtn) => {
       expect(cardBtn).toBeTruthy();
     });
-  });
-
-  test("there should be 12 products on first page", async () => {
-    const cardCount = await cards.count();
-    expect(cardCount).toBe(12);
   });
 
   test("there should be 12 products on second page", async ({ page }) => {
