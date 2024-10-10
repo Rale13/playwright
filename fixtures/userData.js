@@ -4,6 +4,7 @@ export const generateUserCredentials = (length) => {
   const baseString = generateRandomString(length);
   const baseNumb = generateRandomNum(length);
 
+
   const username = baseString;
   const email = `${baseString}@mail.com`;
   const password = `${baseString}1234`;
@@ -22,6 +23,7 @@ export const generateUserCredentials = (length) => {
     invalidEmail,
   };
 };
+
 
 export const REGISTER_EMPTY_USERNAME = {
   email: generateUserCredentials(5).email,
@@ -83,3 +85,4 @@ export const LOGIN_INVALID_EMAIL_FORMAT = {
   email: generateUserCredentials(5).username,
   password: generateUserCredentials().registeredPassword
 }
+
