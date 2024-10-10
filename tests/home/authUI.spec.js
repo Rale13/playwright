@@ -1,13 +1,13 @@
 import { test, expect } from "@playwright/test";
-import { generateUserCredentials, HEADINGS, URLS, ERRORS} from "../../fixtures";
+import { userData, HEADINGS, URLS, ERRORS} from "../../fixtures";
 import { RegisterPage } from "../../pom/modules/ui/registerPage";
 import { LoginPage } from "../../pom/modules/ui/loginPage";
 
 let loginPage;
 let registerPage;
-const { username, email, pass, registeredUser, registeredEmail, invalidEmail } = generateUserCredentials(5);
+const { username, email, password, registeredUser, registeredEmail, invalidEmail } = userData.generateUserCredentials(5);
 let loginEmail = email;
-let loginPassword = pass;
+let loginPassword = password;
 
 test.describe.configure({ mode: "serial" });
 
@@ -22,7 +22,7 @@ test.describe("register",() => {
   //negative cases
   test("Shouldn't be able to register without username", async ({ page }) => {
     //Instantiate POM class
-    registerPage.emptyUsername(email, pass);
+    registerPage.emptyUsername(email, password);
     //verify error message and url
     await expect(registerPage.errorMessage).toBeVisible();
     await expect(registerPage.errorMessage).toHaveText(ERRORS["USERNAME"]);
@@ -31,7 +31,7 @@ test.describe("register",() => {
 
   test("Shouldn't be able to register without email", async ({ page }) => {
     //Instantiate POM class
-    registerPage.emptyEmail(username, pass);
+    registerPage.emptyEmail(username, password);
     //verify error message and url
     await expect(registerPage.errorMessage).toBeVisible();
     await expect(registerPage.errorMessage).toHaveText(ERRORS["EMAIL"]);
@@ -49,7 +49,7 @@ test.describe("register",() => {
 
   test("Shouldn't be able to register with registered username", async ({ page }) => {
     //Instantiate POM class
-    registerPage.register(registeredUser, email, pass);
+    registerPage.register(registeredUser, email, password);
     //verify error message and url
     await expect(registerPage.errorMessage).toBeVisible();
     await expect(registerPage.errorMessage).toHaveText(ERRORS["TAKEN_USER"]);
@@ -58,7 +58,7 @@ test.describe("register",() => {
 
   test("Shouldn't be able to register with registered email", async ({ page }) => {
     //Instantiate POM class
-    registerPage.register(username, registeredEmail, pass);
+    registerPage.register(username, registeredEmail, password);
     //verify error message and url
     await expect(registerPage.errorMessage).toBeVisible();
     await expect(registerPage.errorMessage).toHaveText(ERRORS["TAKEN_EMAIL"]);
@@ -67,7 +67,7 @@ test.describe("register",() => {
 
   test("Shouldn't be able to register with email of invalid format", async ({ page }) => {
     //Instantiate POM class
-    registerPage.register(username, username, pass);
+    registerPage.register(username, username, password);
     //verify error message and url
     await expect(registerPage.errorMessage).toBeVisible();
     await expect(registerPage.errorMessage).toHaveText(ERRORS["INVALID_EMAIL"]);
@@ -79,7 +79,7 @@ test.describe("register",() => {
     await expect(registerPage.heading).toBeVisible();
     await expect(registerPage.heading).toHaveText(HEADINGS["REGISTER"]);
     //Instantiate POM class
-    registerPage.register(username, email, pass);
+    registerPage.register(username, email, password);
     //wait for and verify redirect
     await page.waitForURL(URLS["DASHBOARD"]);
     await expect(page.getByText(HEADINGS["DASHBOARD"])).toBeVisible();
@@ -132,7 +132,7 @@ test.describe("login",() => {
 
   test("Shouldn't be able to login with email of invalid format", async ({ page }) => {
     //Instantiate POM class
-    loginPage.login(username, pass);
+    loginPage.login(username, password);
     //verify error message and url
     await expect(loginPage.errorMessage).toBeVisible();
     await expect(loginPage.errorMessage).toHaveText(ERRORS["INVALID_EMAIL_L"]);
