@@ -1,30 +1,39 @@
 const generateRandomString = (length) => {
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let result = "";
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      result += characters[randomIndex];
-    }
-    return result;
-  };
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters[randomIndex];
+  }
+  return result;
+};
 
-  const generateRandomNum = (length) => {
-    const characters ="0123456789";
-    let result = "";
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      result += characters[randomIndex];
-    }
-    return result;
-  };
+const generateRandomNum = (length) => {
+  const characters = "0123456789";
+  let result = "";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    result += characters[randomIndex];
+  }
+  return result;
+};
+
+const generateRandomNumber = (max) => {
+  return Math.floor(Math.random() * (max - 1) + 1);
+};
 
 const fillAndSubmitForm = async (page, fields, values) => {
-  for(let i = 0; i < fields.length; i++) {
-      await page.locator(fields[i]).fill(values[i]);
+  for (let i = 0; i < fields.length; i++) {
+    await page.locator(fields[i]).fill(values[i]);
   }
 
   await page.locator("button").click();
-}; 
+};
 
-export { generateRandomString, generateRandomNum, fillAndSubmitForm};
+export {
+  generateRandomString,
+  generateRandomNum,
+  fillAndSubmitForm,
+  generateRandomNumber,
+};
