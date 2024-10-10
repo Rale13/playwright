@@ -18,6 +18,11 @@ export class Dashboard {
 }
 
 // hellper functions
+export const switchBetweenPages = async (page, dashboard, pageBtn) => {
+  await dashboard.paginationLocator.locator("button").nth(pageBtn).click();;
+    await page.waitForTimeout(1500);
+};
+
 
 //extract individual elements from a product
 export const getProductElements = async (productLocator, elementLocator) => {

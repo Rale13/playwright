@@ -4,6 +4,7 @@ import {
   Dashboard,
   getProductElements,
   collectAllProductsData,
+  switchBetweenPages,
   getProductData,
 } from "../../pom/modules/ui/dashboard";
 import { generateUserCredentials, URLS } from "../../fixtures";
@@ -48,14 +49,12 @@ test.describe("dashboard tests", () => {
     expect(cardCount).toBe(12);
   });
 
-  test.only("there should be 12 different products on the second page", async ({page}) => {
+  test("there should be 12 different products on the second page", async ({page}) => {
     const firstPageData = await getProductData(dashboard);
-    await dashboard.paginationLocator.locator("button").nth(1).click();
-    await page.waitForTimeout(1500);
+    await switchBetweenPages(page, dashboard, 1)
     const secondPageData = await getProductData(dashboard);
     expect(firstPageData).not.toEqual(secondPageData);
   });
-  
 
   test("product cards title should not be empty", async () => {
     const titles = await getProductElements(cards, dashboard.productTitle);
@@ -92,12 +91,15 @@ test.describe("dashboard tests", () => {
     });
   });
 
-  test("out of stock items should have dissabled cart button", async ({ page }) => {
+  test("out of stock items should have dissabled cart button", async ({
+    page,
+  }) => {
     const allProducts = await collectAllProductsData(page, dashboard);
-    const outOfStockProducts = allProducts.filter(product => product.cartButton.disabled);
-    outOfStockProducts.forEach(product => {
+    const outOfStockProducts = allProducts.filter(
+      (product) => product.cartButton.disabled
+    );
+    outOfStockProducts.forEach((product) => {
       expect(product.cartButton.disabled).toBe(true);
     });
   });
-  
 });
