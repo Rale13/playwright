@@ -1,6 +1,11 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../../pom/modules/ui/loginPage";
-import { Dashboard, getProductElements } from "../../pom/modules/ui/dashboard";
+import {
+  Dashboard,
+  getProductElements,
+  collectAllProductsData,
+  getProductData,
+} from "../../pom/modules/ui/dashboard";
 import { generateUserCredentials, URLS } from "../../fixtures";
 
 let dashboard;
@@ -17,7 +22,7 @@ test.describe("dashboard tests", () => {
     dashboard = new Dashboard(page);
     //log in
     loginPage.login(registeredEmail, registeredPass);
-    //assert that right page is opened
+    //assert that all elements are loaded
     await page.waitForURL(URLS["DASHBOARD"]);
     await page.waitForSelector(dashboard.loader, { state: "hidden" });
     cards = dashboard.productLocator;
@@ -31,8 +36,8 @@ test.describe("dashboard tests", () => {
     await expect(dashboard.filter).toBeInViewport();
   });
 
-  test.only("product cards should be visible", async () => {
-    const allCards = await getProductElements(cards, cards)
+  test("product cards should be visible", async () => {
+    const allCards = await getProductElements(cards, cards);
     allCards.forEach((card) => {
       expect(card).toBeTruthy();
     });
@@ -42,6 +47,15 @@ test.describe("dashboard tests", () => {
     const cardCount = await cards.count();
     expect(cardCount).toBe(12);
   });
+
+  test.only("there should be 12 different products on the second page", async ({page}) => {
+    const firstPageData = await getProductData(dashboard);
+    await dashboard.paginationLocator.locator("button").nth(1).click();
+    await page.waitForTimeout(1500);
+    const secondPageData = await getProductData(dashboard);
+    expect(firstPageData).not.toEqual(secondPageData);
+  });
+  
 
   test("product cards title should not be empty", async () => {
     const titles = await getProductElements(cards, dashboard.productTitle);
@@ -78,9 +92,12 @@ test.describe("dashboard tests", () => {
     });
   });
 
-  test("there should be 12 products on second page", async ({ page }) => {
-    await dashboard.pagButton.click();
-    const cardCount = await cards.count();
-    expect(cardCount).toBe(12);
+  test("out of stock items should have dissabled cart button", async ({ page }) => {
+    const allProducts = await collectAllProductsData(page, dashboard);
+    const outOfStockProducts = allProducts.filter(product => product.cartButton.disabled);
+    outOfStockProducts.forEach(product => {
+      expect(product.cartButton.disabled).toBe(true);
+    });
   });
+  
 });
