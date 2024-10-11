@@ -21,6 +21,7 @@ const generateRandomNum = (length) => {
 
 const generateRandomNumber = (max) => {
   return Math.floor(Math.random() * (max - 1) + 1);
+
 };
 
 const fillAndSubmitForm = async (page, fields, values) => {
@@ -31,9 +32,22 @@ const fillAndSubmitForm = async (page, fields, values) => {
   await page.locator("button").click();
 };
 
+const iterateThroughElements = async (locator, actionCallback) => {
+  const count = await locator.count();
+  const results = [];
+  for (let i = 0; i < count; i++) {
+    const element = locator.nth(i);
+    const result = await actionCallback(element);
+    results.push(result);
+  }
+
+  return results;
+}
+
 export {
   generateRandomString,
   generateRandomNum,
   fillAndSubmitForm,
+  iterateThroughElements,
   generateRandomNumber,
 };
