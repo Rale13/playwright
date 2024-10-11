@@ -21,7 +21,6 @@ test.describe("Registration API tests", () => {
   test("Shouldn't be able to register without username", async () => {
     const response = await registerAPI.registerWithoutUsername(email, password);
     // Validate the registration response
-    console.log(response)
     expect(response).toHaveProperty("message", ERRORS["USERNAME"]);
   });
 
@@ -43,8 +42,6 @@ test.describe("Registration API tests", () => {
       userData.email,
       userData.password
     );
-    // Validate the registration response
-    console.log(response)
     expect(response).toHaveProperty("message", ERRORS["TAKEN_USER"]);
   });
 
