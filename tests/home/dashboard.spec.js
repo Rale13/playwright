@@ -7,12 +7,11 @@ import {
   switchBetweenPages,
   getProductData,
 } from "../../pom/modules/ui/dashboard";
-import { generateUserCredentials, URLS } from "../../fixtures";
+import { Headers } from "../../pom/modules/ui/header";
+import { userData, URLS } from "../../fixtures";
 
-let dashboard;
-let loginPage;
-let cards;
-const { registeredEmail, registeredPass } = generateUserCredentials();
+let dashboard, loginPage, headers, cards;
+const { registeredEmail, registeredPass } = userData.generateUserCredentials();
 
 test.describe("dashboard tests", () => {
   test.beforeAll("log in", async ({ browser }) => {
@@ -21,16 +20,13 @@ test.describe("dashboard tests", () => {
     //instantiate pom's
     loginPage = new LoginPage(page);
     dashboard = new Dashboard(page);
+    headers = new Headers(page);
     //log in
     loginPage.login(registeredEmail, registeredPass);
     //assert that all elements are loaded
     await page.waitForURL(URLS["DASHBOARD"]);
-    await page.waitForSelector(dashboard.loader, { state: "hidden" });
+    await page.waitForSelector(headers.loader, { state: "hidden" });
     cards = dashboard.productLocator;
-  });
-
-  test("gear icon should be visible", async () => {
-    await expect(dashboard.gearLocator).toBeVisible();
   });
 
   test("filter list should be in viewport", async () => {
@@ -49,9 +45,11 @@ test.describe("dashboard tests", () => {
     expect(cardCount).toBe(12);
   });
 
-  test("there should be 12 different products on the second page", async ({page}) => {
+  test("there should be 12 different products on the second page", async ({
+    page,
+  }) => {
     const firstPageData = await getProductData(dashboard);
-    await switchBetweenPages(page, dashboard, 1)
+    await switchBetweenPages(page, dashboard, 1);
     const secondPageData = await getProductData(dashboard);
     expect(firstPageData).not.toEqual(secondPageData);
   });
