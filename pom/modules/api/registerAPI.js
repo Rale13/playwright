@@ -1,17 +1,18 @@
 import { BaseAPI } from "./baseApi";
+import { ENDPOINTS } from "../../../fixtures/http";
 
 export class RegisterAPI extends BaseAPI {
   constructor(page) {
     super(page);
-    this.endpoint = "/api/v1/auth/register";
+    this.endpoint = ENDPOINTS["REGISTER"];
   }
 
   async register(payload) {
     return await this.post(this.endpoint, payload);
   }
 
-  async registerWithoutUsername(email,password) {
-    let response = await this.page.request.post("/api/v1/auth/register", {
+  async registerWithoutUsername(email, password) {
+    let response = await this.page.request.post(ENDPOINTS["REGISTER"], {
       headers: { Accept: "application/json" },
       data: {
         email: email,
@@ -24,8 +25,8 @@ export class RegisterAPI extends BaseAPI {
     return responseJson;
   }
 
-  async registerWithoutEmail(username,password) {
-    let response = await this.page.request.post("/api/v1/auth/register", {
+  async registerWithoutEmail(username, password) {
+    let response = await this.page.request.post(ENDPOINTS["REGISTER"], {
       headers: { Accept: "application/json" },
       data: {
         username: username,
@@ -38,8 +39,8 @@ export class RegisterAPI extends BaseAPI {
     return responseJson;
   }
 
-  async registerWithoutPassword(username,email) {
-    let response = await this.page.request.post("/api/v1/auth/register", {
+  async registerWithoutPassword(username, email) {
+    let response = await this.page.request.post(ENDPOINTS["REGISTER"], {
       headers: { Accept: "application/json" },
       data: {
         username: username,
