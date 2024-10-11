@@ -5,8 +5,14 @@ import { LoginAPI } from "../../pom/modules/api/loginAPI";
 
 let loginAPI;
 let registerAPI;
-const { username, email, password, registeredUser, registeredEmail ,invalidEmail} =
-  userData.generateUserCredentials(5);
+const {
+  username,
+  email,
+  password,
+  registeredUser,
+  registeredEmail,
+  invalidEmail,
+} = userData.generateUserCredentials(5);
 let loginEmail = email;
 let loginPassword = password;
 
@@ -21,7 +27,6 @@ test.describe("Registration API tests", () => {
   test("Shouldn't be able to register without username", async () => {
     const response = await registerAPI.registerWithoutUsername(email, password);
     // Validate the registration response
-    console.log(response)
     expect(response).toHaveProperty("message", ERRORS["USERNAME"]);
   });
 
@@ -44,7 +49,6 @@ test.describe("Registration API tests", () => {
       userData.password
     );
     // Validate the registration response
-    console.log(response)
     expect(response).toHaveProperty("message", ERRORS["TAKEN_USER"]);
   });
 
@@ -74,7 +78,6 @@ test.describe("Registration API tests", () => {
     expect(response.auth).toHaveProperty("token");
   });
 });
-
 
 test.describe("Login API tests", () => {
   test.beforeEach("start pom", async ({ page }) => {
