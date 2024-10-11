@@ -19,6 +19,11 @@ const generateRandomNum = (length) => {
   return result;
 };
 
+const generateRandomNumber = (max) => {
+  return Math.floor(Math.random() * (max - 1) + 1);
+
+};
+
 const fillAndSubmitForm = async (page, fields, values) => {
   for (let i = 0; i < fields.length; i++) {
     await page.locator(fields[i]).fill(values[i]);
@@ -44,4 +49,5 @@ export {
   generateRandomNum,
   fillAndSubmitForm,
   iterateThroughElements,
+  generateRandomNumber,
 };
