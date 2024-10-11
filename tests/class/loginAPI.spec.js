@@ -48,7 +48,7 @@ test.describe("Registration API tests", () => {
       userData.email,
       userData.password
     );
-    // Validate the registration response
+
     expect(response).toHaveProperty("message", ERRORS["TAKEN_USER"]);
   });
 
