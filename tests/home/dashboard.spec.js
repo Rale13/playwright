@@ -1,17 +1,12 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../../pom/modules/ui/loginPage";
-import {
-  Dashboard,
-  getProductElements,
-  collectAllProductsData,
-  switchBetweenPages,
-  getProductData,
-} from "../../pom/modules/ui/dashboard";
+import { Dashboard } from "../../pom/modules/ui/dashboard";
 import { Headers } from "../../pom/modules/ui/header";
 import { userData, URLS } from "../../fixtures";
 
 let dashboard, loginPage, headers, cards;
-const { registeredEmail, registeredPass } = userData.generateUserCredentials();
+const { registeredEmail, registeredPassword } =
+  userData.generateUserCredentials();
 
 test.describe("dashboard tests", () => {
   test.beforeAll("log in", async ({ browser }) => {
@@ -22,7 +17,7 @@ test.describe("dashboard tests", () => {
     dashboard = new Dashboard(page);
     headers = new Headers(page);
     //log in
-    loginPage.login(registeredEmail, registeredPass);
+    loginPage.login(registeredEmail, registeredPassword);
     //assert that all elements are loaded
     await page.waitForURL(URLS["DASHBOARD"]);
     await page.waitForSelector(headers.loader, { state: "hidden" });
@@ -34,7 +29,7 @@ test.describe("dashboard tests", () => {
   });
 
   test("product cards should be visible", async () => {
-    const allCards = await getProductElements(cards, cards);
+    const allCards = await dashboard.getProductElements(cards, cards);
     allCards.forEach((card) => {
       expect(card).toBeTruthy();
     });
@@ -48,42 +43,57 @@ test.describe("dashboard tests", () => {
   test("there should be 12 different products on the second page", async ({
     page,
   }) => {
-    const firstPageData = await getProductData(dashboard);
-    await switchBetweenPages(page, dashboard, 1);
-    const secondPageData = await getProductData(dashboard);
+    const firstPageData = await dashboard.getProductData(dashboard);
+    await dashboard.switchBetweenPages(page, dashboard, 1);
+    const secondPageData = await dashboard.getProductData(dashboard);
     expect(firstPageData).not.toEqual(secondPageData);
   });
 
   test("product cards title should not be empty", async () => {
-    const titles = await getProductElements(cards, dashboard.productTitle);
+    const titles = await dashboard.getProductElements(
+      cards,
+      dashboard.productTitle
+    );
     titles.forEach((title) => {
       expect(title).toBeDefined();
     });
   });
 
   test("product title should be visible", async () => {
-    const titles = await getProductElements(cards, dashboard.productTitle);
+    const titles = await dashboard.getProductElements(
+      cards,
+      dashboard.productTitle
+    );
     titles.forEach((title) => {
       expect(title).toBeTruthy();
     });
   });
 
   test("product cards should have an image", async () => {
-    const images = await getProductElements(cards, dashboard.productImg);
+    const images = await dashboard.getProductElements(
+      cards,
+      dashboard.productImg
+    );
     images.forEach((image) => {
       expect(image).toBeTruthy();
     });
   });
 
   test("product cards should have a price", async () => {
-    const prices = await getProductElements(cards, dashboard.productPrice);
+    const prices = await dashboard.getProductElements(
+      cards,
+      dashboard.productPrice
+    );
     prices.forEach((price) => {
       expect(price).toBeTruthy();
     });
   });
 
   test("product cards should have a cart button", async () => {
-    const cardBtns = await getProductElements(cards, dashboard.productCartBtn);
+    const cardBtns = await dashboard.getProductElements(
+      cards,
+      dashboard.productCartBtn
+    );
     cardBtns.forEach((cardBtn) => {
       expect(cardBtn).toBeTruthy();
     });
@@ -92,7 +102,7 @@ test.describe("dashboard tests", () => {
   test("out of stock items should have dissabled cart button", async ({
     page,
   }) => {
-    const allProducts = await collectAllProductsData(page, dashboard);
+    const allProducts = await dashboard.collectAllProductsData(page, dashboard);
     const outOfStockProducts = allProducts.filter(
       (product) => product.cartButton.disabled
     );
