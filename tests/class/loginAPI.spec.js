@@ -46,6 +46,7 @@ test.describe("Registration API tests", () => {
     const response = await registerAPI.register(
       userData.REGISTERED_USER_PAYLOAD
     );
+
     expect(response).toHaveProperty("message", ERRORS["TAKEN_USER"]);
   });
 
