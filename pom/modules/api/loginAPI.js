@@ -1,9 +1,11 @@
+import { URLS } from "../../../fixtures";
 import { BaseAPI } from "./baseApi";
+import { ENDPOINTS } from "../../../fixtures/http";
 
 export class LoginAPI extends BaseAPI {
   constructor(page) {
     super(page)
-    this.endpoint = '/api/v1/auth/login'
+    this.endpoint = ENDPOINTS["LOGIN"]
   }
 
   async login(payload) {
@@ -11,7 +13,7 @@ export class LoginAPI extends BaseAPI {
   }
 
   async loginWithoutEmail(password) {
-    let response = await this.page.request.post("/api/v1/auth/login", {
+    let response = await this.page.request.post(ENDPOINTS["LOGIN"], {
       headers: { Accept: "application/json" },
       data: {
         password: password,
@@ -24,7 +26,7 @@ export class LoginAPI extends BaseAPI {
   }
 
   async loginWithoutPassowrd(email) {
-    let response = await this.page.request.post("/api/v1/auth/login", {
+    let response = await this.page.request.post(ENDPOINTS["LOGIN"], {
       headers: { Accept: "application/json" },
       data: {
         email: email,

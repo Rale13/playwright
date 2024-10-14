@@ -1,9 +1,10 @@
 import { BaseAPI } from "./baseApi";
+import { ENDPOINTS } from "../../../fixtures/http"
 
 export class BaseRegisterAPI extends BaseAPI {
   constructor(page) {
     super(page)
-    this.endpoint = '/api/v1/auth/register'
+    this.endpoint = ENDPOINTS["REGISTER"]
   }
 
   async register(payload) {

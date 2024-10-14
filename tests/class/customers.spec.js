@@ -11,12 +11,12 @@ test.describe("customers API tests", () => {
   test.beforeEach("get auth token", async ({ page }) => {
     loginAPI = new BaseLoginAPI(page);
     const loginResponse = await loginAPI.login(VALID_LOGIN_PAYLOAD);
+    console.log(loginResponse)
     customersAPI = new CustomersAPI(page, loginResponse.auth.token);
   });
 
-  test("should be able to get all customers", async () => {
+  test.only("should be able to get all customers", async () => {
     const response = await customersAPI.getAllCustomers();
-
     for (let i = 0; i < response.customers.length; i++) {
       let id = response.customers[i].id;
       expect(id).toBe(i + 1);
@@ -28,24 +28,20 @@ test.describe("customers API tests", () => {
   }) => {
     const customersAPIWithoutToken = new CustomersAPI(page);
     const response = await customersAPIWithoutToken.getAllCustomers();
-
     expect(response.message).toBe(ERROR_MESSAGE["UNAUTHENTICATED"]);
   });
 
   test("should be able to get single customer", async () => {
     const allCustomersResponse = await customersAPI.getAllCustomers();
     const numberOfCustomers = allCustomersResponse.customers.length;
-
     const randomId = utils.generateRandomNumber(numberOfCustomers);
     const response = await customersAPI.getCustomer(randomId);
-    console.log(response);
     expect(response.status).toBe(STATUS["SUCCESS"]);
   });
 
   test("should be able to update a customers first name", async () => {
     const allCustomersResponse = await customersAPI.getAllCustomers();
     const numberOfCustomers = allCustomersResponse.customers.length;
-
     const randomId = utils.generateRandomNumber(numberOfCustomers);
     const customerToUpdate = await customersAPI.getCustomer(randomId);
 
@@ -64,7 +60,6 @@ test.describe("customers API tests", () => {
     const allCustomersResponse = await customersAPI.getAllCustomers();
     const lastCustomer = allCustomersResponse.customers.length;
     const response = await customersAPI.deleteCustomer(lastCustomer);
-
     expect(response.status).toBe(STATUS["SUCCESS"]);
     const getDeletedCustomer = await customersAPI.getCustomer(lastCustomer);
     expect(getDeletedCustomer.error).toBe(

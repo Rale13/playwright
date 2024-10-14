@@ -24,7 +24,6 @@ test.describe("products API tests", () => {
             quantity: 50,
             rating: Number(`${utils.generateRandomNumber(5)}.${utils.generateRandomNumber(9)}`),
   });
-    console.log(response)
     expect(response.status).toBe(STATUS["SUCCESS"])
     expect(response.message).toBe('Product created successfully.')
   })
