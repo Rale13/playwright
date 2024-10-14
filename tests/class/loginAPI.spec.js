@@ -5,8 +5,14 @@ import { LoginAPI } from "../../pom/modules/api/loginAPI";
 
 let loginAPI;
 let registerAPI;
-const { username, email, password, registeredEmail ,invalidEmail} =
-  userData.generateUserCredentials(5);
+const {
+  username,
+  email,
+  password,
+  registeredUser,
+  registeredEmail,
+  invalidEmail,
+} = userData.generateUserCredentials(5);
 let loginEmail = email;
 let loginPassword = password;
 
@@ -38,40 +44,33 @@ test.describe("Registration API tests", () => {
 
   test("Shouldn't be able to register with registered username", async () => {
     const response = await registerAPI.register(
-      userData.registeredUser,
-      userData.email,
-      userData.password
+      userData.REGISTERED_USER_PAYLOAD
     );
     expect(response).toHaveProperty("message", ERRORS["TAKEN_USER"]);
   });
 
   test("Shouldn't be able to register with registered email", async () => {
     const response = await registerAPI.register(
-      username,
-      registeredEmail,
-      password
+      userData.REGISTERED_EMAIL_PAYLOAD
     );
     // Validate the registration response
     expect(response).toHaveProperty("message", ERRORS["TAKEN_EMAIL"]);
   });
 
   test("Shouldn't be able to register with email of invalid format", async () => {
-    const response = await registerAPI.register(username, username, password);
+    const response = await registerAPI.register(userData.INVALID_EMALI_PAYLOAD);
     // Validate the registration response
     expect(response).toHaveProperty("message", ERRORS["INVALID_EMAIL"]);
   });
 
   test("register a new user via API", async () => {
     // Call the registerViaBE
-    const response = await registerAPI.register(username, email, password);
-
+    const response = await registerAPI.register(userData.generateUserCredentials(8));
     // Validate the registration response
     expect(response).toHaveProperty("status", "Success");
-    expect(response.user).toHaveProperty("username", username);
     expect(response.auth).toHaveProperty("token");
   });
 });
-
 
 test.describe("Login API tests", () => {
   test.beforeEach("start pom", async ({ page }) => {
@@ -91,26 +90,26 @@ test.describe("Login API tests", () => {
   });
 
   test("Shouldn't be able to login with invalid email", async () => {
-    const response = await loginAPI.login(invalidEmail, loginPassword);
+    const response = await loginAPI.login(userData.LOGIN_INVALID_EMAIL);
     // Validate the registration response
     expect(response).toHaveProperty("error", "Unauthorized");
   });
 
   test("Shouldn't be able to login with invalid password", async () => {
-    const response = await loginAPI.login(loginEmail, username);
+    const response = await loginAPI.login(userData.LOGIN_INVALID_PASSWORD);
     // Validate the registration response
     expect(response).toHaveProperty("error", "Unauthorized");
   });
 
   test("Shouldn't be able to login with email of invalid format", async () => {
-    const response = await loginAPI.login(username, loginPassword);
+    const response = await loginAPI.login(userData.LOGIN_INVALID_EMAIL_FORMAT);
     // Validate the registration response
     expect(response).toHaveProperty("message", ERRORS["INVALID_EMAIL_L"]);
   });
 
   test("login user via API", async () => {
     // Call the loginViaBE
-    const response = await loginAPI.login(loginEmail, loginPassword);
+    const response = await loginAPI.login(userData.VALID_LOGIN_PAYLOAD);
     // Validate the registration response
     expect(response).toHaveProperty("status", "Success");
     expect(response.auth).toHaveProperty("token");

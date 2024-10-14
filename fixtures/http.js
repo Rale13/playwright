@@ -13,5 +13,6 @@ export const ERROR_MESSAGE = {
 
 export const ENDPOINTS = {
   REGISTER: "/api/v1/auth/register",
-  LOGIN: "api/v1/auth/login"
+  LOGIN: "api/v1/auth/login",
+  CUSTOMERS: "api/v1/customers"
 }
