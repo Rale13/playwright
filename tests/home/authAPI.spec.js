@@ -67,12 +67,12 @@ test.describe("Login API tests", () => {
 
   test("Shouldn't be able to login with invalid email", async () => {
     const response = await loginAPI.login(userData.LOGIN_INVALID_EMAIL);
-    expect(response).toHaveProperty("error", "Unauthorized");
+    expect(response).toHaveProperty("error", STATUS["UNAUTHORIZED"]);
   });
 
   test("Shouldn't be able to login with invalid password", async () => {
     const response = await loginAPI.login(userData.LOGIN_INVALID_PASSWORD);
-    expect(response).toHaveProperty("error", "Unauthorized");
+    expect(response).toHaveProperty("error", STATUS["UNAUTHORIZED"]);
   });
 
   test("Shouldn't be able to login with email of invalid format", async () => {

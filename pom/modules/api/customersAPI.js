@@ -1,9 +1,10 @@
 import { BaseAPI } from "./baseApi";
+import { ENDPOINTS } from "../../../fixtures/http";
 
 export class CustomersAPI extends BaseAPI {
   constructor(page, token = "") {
     super(page, token);
-    this.endpoint = "/api/v1/customers";
+    this.endpoint = ENDPOINTS["CUSTOMERS"];
   }
 
   async getAllCustomers() {

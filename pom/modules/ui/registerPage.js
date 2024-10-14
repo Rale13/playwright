@@ -24,7 +24,7 @@ export class RegisterPage {
 
   async emptyEmail(username, password) {
     await this.usernameInput.fill(username);
-    await this.passwordlInput.fill(password);
+    await this.passwordInput.fill(password);
     await this.registerButton.click();
   }
 
