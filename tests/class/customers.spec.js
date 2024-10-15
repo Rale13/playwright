@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { BaseLoginAPI } from "../../pom/modules/api/basicLoginAPI";
 import { CustomersAPI } from "../../pom/modules/api/customersAPI";
 import { VALID_LOGIN_PAYLOAD } from "../../fixtures/userData";
-import { ERROR_MESSAGE, STATUS} from "../../fixtures/http";
+import { ERROR_MESSAGE, STATUS } from "../../fixtures/http";
 import { utils } from "../../fixtures";
 
 test.describe("customers API tests", () => {
@@ -38,7 +38,7 @@ test.describe("customers API tests", () => {
 
     const randomId = utils.generateRandomNumber(numberOfCustomers);
     const response = await customersAPI.getCustomer(randomId);
-    console.log(response)
+    console.log(response);
     expect(response.status).toBe(STATUS["SUCCESS"]);
   });
 
@@ -48,24 +48,27 @@ test.describe("customers API tests", () => {
 
     const randomId = utils.generateRandomNumber(numberOfCustomers);
     const customerToUpdate = await customersAPI.getCustomer(randomId);
-    
+
     const customerInfo = customerToUpdate.customer;
 
     const response = await customersAPI.updateCustomer(customerInfo.id, {
       first_name: `Updated ${customerInfo.first_name}`,
     });
     expect(customerInfo.first_name).not.toBe(response.customer.first_name);
-    expect(response.customer.first_name).toBe(`Updated ${customerInfo.first_name}`)
-
-  })
+    expect(response.customer.first_name).toBe(
+      `Updated ${customerInfo.first_name}`
+    );
+  });
 
   test.only("should be able to delete a last customer", async () => {
     const allCustomersResponse = await customersAPI.getAllCustomers();
     const lastCustomer = allCustomersResponse.customers.length;
     const response = await customersAPI.deleteCustomer(lastCustomer);
-    
-    expect(response.status).toBe(STATUS["SUCCESS"])
-    const getDeletedCustomer = await customersAPI.getCustomer(lastCustomer)
-    expect(getDeletedCustomer.error).toBe(ERROR_MESSAGE.NO_CUSTOMER_FOUND(lastCustomer))
-  })
+
+    expect(response.status).toBe(STATUS["SUCCESS"]);
+    const getDeletedCustomer = await customersAPI.getCustomer(lastCustomer);
+    expect(getDeletedCustomer.error).toBe(
+      ERROR_MESSAGE.NO_CUSTOMER_FOUND(lastCustomer)
+    );
+  });
 });
