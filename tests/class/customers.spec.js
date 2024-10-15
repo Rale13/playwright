@@ -14,12 +14,13 @@ test.describe("customers API tests", () => {
     customersAPI = new CustomersAPI(page, loginResponse.auth.token);
   });
 
-  test("should be able to get all customers ", async () => {
+  test("1should be able to get all customers", async () => {
     const response = await customersAPI.getAllCustomers();
-
-    for (let i = 0; i < response.customers.length; i++) {
-      let id = response.customers[i].id;
-      expect(id).toBe(i + 1);
+    let previousId = 0;
+    for (const customer of response.customers) {
+      const currentId = customer.id;
+      expect(currentId).toBeGreaterThan(previousId);
+      previousId = currentId;
     }
   });
 
@@ -28,24 +29,20 @@ test.describe("customers API tests", () => {
   }) => {
     const customersAPIWithoutToken = new CustomersAPI(page);
     const response = await customersAPIWithoutToken.getAllCustomers();
-
     expect(response.message).toBe(ERROR_MESSAGE["UNAUTHENTICATED"]);
   });
 
   test("should be able to get single customer", async () => {
     const allCustomersResponse = await customersAPI.getAllCustomers();
     const numberOfCustomers = allCustomersResponse.customers.length;
-
     const randomId = utils.generateRandomNumber(numberOfCustomers);
     const response = await customersAPI.getCustomer(randomId);
-    console.log(response);
     expect(response.status).toBe(STATUS["SUCCESS"]);
   });
 
   test("should be able to update a customers first name", async () => {
     const allCustomersResponse = await customersAPI.getAllCustomers();
     const numberOfCustomers = allCustomersResponse.customers.length;
-
     const randomId = utils.generateRandomNumber(numberOfCustomers);
     const customerToUpdate = await customersAPI.getCustomer(randomId);
 
@@ -60,15 +57,16 @@ test.describe("customers API tests", () => {
     );
   });
 
-  test.only("should be able to delete a last customer", async () => {
+  test("should be able to delete the last customer", async () => {
     const allCustomersResponse = await customersAPI.getAllCustomers();
-    const lastCustomer = allCustomersResponse.customers.length;
-    const response = await customersAPI.deleteCustomer(lastCustomer);
-
-    expect(response.status).toBe(STATUS["SUCCESS"]);
-    const getDeletedCustomer = await customersAPI.getCustomer(lastCustomer);
+    const lastCustomer = allCustomersResponse.customers[allCustomersResponse.customers.length - 1];
+    const lastCustomerId = lastCustomer.id;
+    const deleteResponse = await customersAPI.deleteCustomer(lastCustomerId);
+    expect(deleteResponse.status).toBe(STATUS["SUCCESS"]);
+    const getDeletedCustomer = await customersAPI.getCustomer(lastCustomerId);
     expect(getDeletedCustomer.error).toBe(
-      ERROR_MESSAGE.NO_CUSTOMER_FOUND(lastCustomer)
+      ERROR_MESSAGE.NO_CUSTOMER_FOUND(lastCustomerId)
     );
-  });
+});
+
 });

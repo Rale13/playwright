@@ -10,7 +10,9 @@ export const ERROR_MESSAGE = {
     return `No customer found with ID ${id} found`;
   },
 };
+
 export const ENDPOINTS = {
   REGISTER: "/api/v1/auth/register",
-  LOGIN: "/api/v1/auth/login",
-};
+  LOGIN: "api/v1/auth/login",
+  CUSTOMERS: "api/v1/customers"
+}

@@ -1,9 +1,11 @@
+import { URLS } from "../../../fixtures";
 import { BaseAPI } from "./baseApi";
+import { ENDPOINTS } from "../../../fixtures/http"
 
 export class BaseLoginAPI extends BaseAPI {
   constructor(page) {
     super(page)
-    this.endpoint = '/api/v1/auth/login'
+    this.endpoint = ENDPOINTS["LOGIN"]
   }
 
   async login(payload) {

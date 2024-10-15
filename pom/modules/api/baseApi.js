@@ -16,7 +16,7 @@ export class BaseAPI {
 
   async get(endpoint, id = "") {
     const response = await this.page.request.get(`${endpoint}/${id}`, {
-      headers: this.getHeaders()
+      headers: this.getHeaders(),
     });
 
     const responseJson = await response.json();
@@ -28,7 +28,7 @@ export class BaseAPI {
     const response = await this.page.request.put(`${endpoint}/${id}`, {
       headers: this.getHeaders(),
       data: payload,
-    })
+    });
 
     const responseJson = await response.json();
 
@@ -37,7 +37,7 @@ export class BaseAPI {
 
   async delete(endpoint, id) {
     const response = await this.page.request.delete(`${endpoint}/${id}`, {
-      headers: this.getHeaders()
+      headers: this.getHeaders(),
     });
 
     const responseJson = await response.json();
@@ -54,7 +54,7 @@ export class BaseAPI {
     return {
       Accept: "application/json",
       Authorization: `Bearer ${this.getToken()}`,
-    }
+    };
   }
   //setter example
   // setToken(value) {

@@ -1,1 +1,0 @@
-https://github.com/tebrex1995/playwrightProject/blob/master/POM/modules/ui/dashboard.js
