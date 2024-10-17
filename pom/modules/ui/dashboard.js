@@ -12,6 +12,7 @@ export class Dashboard {
     this.productCartBtn = page.locator("button[class='p-button p-component']");
     this.dissabled = page.locator(".p-disabled");
     this.paginationLocator = page.locator(".paginated");
+    this.toastMessage = page.locator("div[class='Toastify__toast']")
   }
 
   // hellper functions
