@@ -9,9 +9,6 @@ const {
   username,
   email,
   password,
-  registeredUser,
-  registeredEmail,
-  invalidEmail,
 } = userData.generateUserCredentials(5);
 let loginEmail = email;
 let loginPassword = password;

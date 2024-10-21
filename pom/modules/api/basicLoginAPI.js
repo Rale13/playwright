@@ -1,4 +1,3 @@
-import { URLS } from "../../../fixtures";
 import { BaseAPI } from "./baseApi";
 import { ENDPOINTS } from "../../../fixtures/http"
 
