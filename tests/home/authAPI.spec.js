@@ -80,6 +80,7 @@ test.describe("Login API tests", () => {
     expect(response).toHaveProperty("message", ERRORS["INVALID_EMAIL_L"]);
   });
 
+
   test("should be able to login with valid data", async () => {
     const response = await loginAPI.login(userData.VALID_LOGIN_PAYLOAD);
     expect(response.status).toBe(STATUS["SUCCESS"]);

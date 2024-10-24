@@ -1,0 +1,47 @@
+{
+  "cookies": [
+    {
+      "name": "XSRF-TOKEN",
+      "value": "eyJpdiI6IldJSS9hbkh1S3lZc2pTQ2ZPSWJQekE9PSIsInZhbHVlIjoicmo4UE5OaUgzQkJQSmhLUlM0azZYWDh4dWEvbVdIVTVCbDFyVGVGMDhIMUhOS1NDRGEzM2xYR2FmQXFYdmgwQ0d2Mms1Umh5WTBBbkFBMHE3eWpnSVVBSHo4UE82MkVPVmJUeWlXa1R0OEtRZGIwVUFTcUo0bW53eisxNjMxTVgiLCJtYWMiOiIyNTUwODcwMjNhZjk0NTNiOGRkOGMxMjdhODA4NjcxODA0OWZiMjU4ZTc4MjJkMTI0M2ZlOGQxMWI1ZDExMGQwIiwidGFnIjoiIn0%3D",
+      "domain": "automaticityacademy.ngrok.app",
+      "path": "/",
+      "expires": 1728931324.462782,
+      "httpOnly": false,
+      "secure": false,
+      "sameSite": "Lax"
+    },
+    {
+      "name": "academy_ecommerce_app_session",
+      "value": "eyJpdiI6ImlDUmpISzkrenZqejFhdTVxVEwyRnc9PSIsInZhbHVlIjoic3lXVSt2OFdNQlZ1Ky9EeUtBd2wzdFVwT0pXS056MlVoRDVOT1ZTUGFxdEFJRnB5OVc5eEthN1NtTkVHWS9Dbi9Hb1BXQ0xoZG13WFNqQUt1RXFiOVk5OGEzM2xzcE9qV1VCNWkxTnJ1S1lLekJ0R0Q5K1huNzhwVXR1K2VNVCsiLCJtYWMiOiI4MGI4MjU5MDgyNmY1ZWExOGM2NGRiYzRlNGQ5MDE0ZTM5NzBkNDgwYWYxYjBmM2Q2YzFhODkwN2Y0N2Y1M2ZhIiwidGFnIjoiIn0%3D",
+      "domain": "automaticityacademy.ngrok.app",
+      "path": "/",
+      "expires": 1728931324.463057,
+      "httpOnly": true,
+      "secure": false,
+      "sameSite": "Lax"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "https://automaticityacademy.ngrok.app",
+      "localStorage": [
+        {
+          "name": "token",
+          "value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vYXV0b21hdGljaXR5YWNhZGVteS5uZ3Jvay5hcHAvYXBpL3YxL2F1dGgvbG9naW4iLCJpYXQiOjE3Mjg5MjQxMjQsImV4cCI6MTcyODkyNzcyNCwibmJmIjoxNzI4OTI0MTI0LCJqdGkiOiJRTXZka1ZyV2NoU1VoekNBIiwic3ViIjoiNjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.WNqvZ0_p3l-Gc8oAWxXxbZ9jxrP7YGV2RfhEyo5qbGg"
+        },
+        {
+          "name": "cartId",
+          "value": "61"
+        },
+        {
+          "name": "userId",
+          "value": "61"
+        },
+        {
+          "name": "persist:root",
+          "value": "{\"userApi\":\"{\\\"queries\\\":{},\\\"mutations\\\":{},\\\"provided\\\":{},\\\"subscriptions\\\":{},\\\"config\\\":{\\\"online\\\":true,\\\"focused\\\":true,\\\"middlewareRegistered\\\":true,\\\"refetchOnFocus\\\":false,\\\"refetchOnReconnect\\\":false,\\\"refetchOnMountOrArgChange\\\":false,\\\"keepUnusedDataFor\\\":60,\\\"reducerPath\\\":\\\"userApi\\\",\\\"invalidationBehavior\\\":\\\"delayed\\\"}}\",\"_persist\":\"{\\\"version\\\":-1,\\\"rehydrated\\\":true}\"}"
+        }
+      ]
+    }
+  ]
+}

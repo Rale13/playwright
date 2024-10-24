@@ -44,6 +44,7 @@ const iterateThroughElements = async (locator, actionCallback) => {
   return results;
 }
 
+
 export {
   generateRandomString,
   generateRandomNum,
@@ -51,3 +52,4 @@ export {
   iterateThroughElements,
   generateRandomNumber,
 };
+
