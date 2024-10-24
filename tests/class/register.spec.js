@@ -1,6 +1,5 @@
 import { test, expect } from "@playwright/test";
 import { RegisterPage } from "../../pom/modules/ui/registerPage";
-import exp from "constants";
 
 let registerPage;
 

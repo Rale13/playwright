@@ -1,24 +1,19 @@
-export class LoginAPI {
+import { BaseAPI } from "./baseApi";
+import { ENDPOINTS } from "../../../fixtures/http";
+
+export class LoginAPI extends BaseAPI {
   constructor(page) {
-    this.page = page;
+    super(page);
+    this.endpoint = ENDPOINTS["LOGIN"];
+
   }
 
-  async loginViaBE(email, password) {
-    let response = await this.page.request.post("/api/v1/auth/login", {
-      headers: { Accept: "application/json" },
-      data: {
-        email: email,
-        password: password,
-      },
-    });
-
-    let responseJson = await response.json();
-
-    return responseJson;
+  async login(payload) {
+    return await this.post(this.endpoint, payload);
   }
 
   async loginWithoutEmail(password) {
-    let response = await this.page.request.post("/api/v1/auth/login", {
+    let response = await this.page.request.post(ENDPOINTS["LOGIN"], {
       headers: { Accept: "application/json" },
       data: {
         password: password,
@@ -31,7 +26,7 @@ export class LoginAPI {
   }
 
   async loginWithoutPassowrd(email) {
-    let response = await this.page.request.post("/api/v1/auth/login", {
+    let response = await this.page.request.post(ENDPOINTS["LOGIN"], {
       headers: { Accept: "application/json" },
       data: {
         email: email,
