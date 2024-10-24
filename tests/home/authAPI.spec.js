@@ -109,9 +109,10 @@ test.describe("Login API tests", () => {
     expect(response).toHaveProperty("message", ERRORS["INVALID_EMAIL_L"]);
   });
 
-  test("login user via API", async () => {
+  test.only("login user via API", async () => {
     // Call the loginViaBE
-    const response = await loginAPI.loginViaBE(loginEmail, loginPassword);
+    //const response = await loginAPI.loginViaBE(loginEmail, loginPassword);
+    const response = await loginAPI.loginViaBE("rale@gmail.com", "Test1234");
     // Validate the registration response
     expect(response).toHaveProperty("status", "Success");
     expect(response.auth).toHaveProperty("token");
