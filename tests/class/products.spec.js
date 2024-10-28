@@ -11,6 +11,7 @@ test.describe("products API tests", () => {
   test.beforeEach("get auth token", async ({ page }) => {
     loginAPI = new BaseLoginAPI(page);
     const loginResponse = await loginAPI.login(VALID_LOGIN_PAYLOAD);
+    console.log(loginResponse)
     productsAPI = new ProductsAPI(page, loginResponse.auth.token);
   });
 

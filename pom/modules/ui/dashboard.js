@@ -15,7 +15,7 @@ export class Dashboard {
     this.toastMessage = page.locator("div[class='Toastify__toast']")
   }
 
-  // hellper functions
+  // helper functions
   switchBetweenPages = async (page, dashboard, pageBtn) => {
     await dashboard.paginationLocator.locator("button").nth(pageBtn).click();
     await page.waitForTimeout(1500);
